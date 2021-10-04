@@ -30,24 +30,24 @@ Route::delete('/posts/{post}', [PostApiController::class, 'destroy']);
 Route::get('/posts/{id}', [PostApiController::class, 'wanted']);
 
 
-Route::get('/categories', [PostApiController::class, 'index']);
+Route::get('/categories', [CategoryApiController::class, 'index']);
 
-Route::post('/categories', [PostApiController::class, 'store']);
+Route::post('/categories', [CategoryApiController::class, 'store']);
 
-Route::put('/categories/{category}', [PostApiController::class, 'update']);
+Route::put('/categories/{category}', [CategoryApiController::class, 'update']);
 
-Route::delete('/categories/{category}', [PostApiController::class, 'destroy']);
+Route::delete('/categories/{category}', [CategoryApiController::class, 'destroy']);
 
-Route::get('/categories/{id}', [PostApiController::class, 'wanted']);
+Route::get('/categories/{id}', [CategoryApiController::class, 'wanted']);
 
 
 
-Route::get('/comments', [PostApiController::class, 'index']);
+Route::get('/comments', [CommentApiController::class, 'index']);
 
-Route::post('/comments', [PostApiController::class, 'store']);
+Route::post('/comments', [CommentApiController::class, 'store']);
 
-Route::put('/comments/{comment}', [PostApiController::class, 'update']);
+Route::put('/comments/{comment}', [CommentApiController::class, 'update']);
 
-Route::delete('/comments/{comment}', [PostApiController::class, 'destroy']);
+Route::delete('/comments/{comment}', [CommentApiController::class, 'destroy']);
 
-Route::get('/comments/{id}', [PostApiController::class, 'wanted']);
+Route::get('/comments/{id}', [CommentApiController::class, 'wanted']);
