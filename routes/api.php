@@ -3,6 +3,8 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Category;
 use App\Http\Controllers\PostApiController;
+use App\Http\Controllers\CategoryApiController;
+use App\Http\Controllers\CommentApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
