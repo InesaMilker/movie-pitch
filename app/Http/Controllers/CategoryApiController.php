@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 
 class CategoryApiController extends Controller
-{public function index()
+{
+    public function index()
     {
         return Category::all();
     }
@@ -23,27 +24,40 @@ class CategoryApiController extends Controller
         ]);
     }
 
-    public function update(Category $categories)
-    {
+    public function update(Request $request, $id){
 
-    request()->validate([
-        'title' =>'required',
+        if (Category::where('id', $id)->exists()) {
+            $category = Category::find($id);
+            $category->title = is_null($request->title) ? $category->title : $request->title;
+            $category->save();
 
-    ]);
-    return $categories->update([
-        'title' => request('title'),
+            return response()->json([
+                "message" => "category updated successfully"
+            ], 200);
+            } else {
+            return response()->json([
+                "message" => "category not found"
+            ], 404);
 
-    ]);
+        }
     }
 
-    public function destroy(Category $categories)
+    public function destroy(Category $category)
     {
-        $categories->delete();
+        $category->delete();
         return response()->json(["message"=>"Successful clearence"], 200);
     }
 
     public function wanted($id)
     {
-        return Category::find($id);
+        if(Category::where('id', $id)->exists())
+        {
+            return Category::find($id);
+        }
+        else{
+            return response()->json([
+                "message" => "category not found"
+            ], 404);
+        }
     }
 }

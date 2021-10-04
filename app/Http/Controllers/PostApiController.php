@@ -14,15 +14,10 @@ class PostApiController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'title' =>'required',
-            'content' =>'required',
-            'topic_id'=> 'required',
-        ]);
         return Post::create([
             'title' => request('title'),
             'content' => request('content'),
-            'topic_id'=> request('topic_id'),
+            'categories_id'=> request('categories_id'),
         ]);
     }
 
@@ -32,12 +27,12 @@ class PostApiController extends Controller
     request()->validate([
         'title' =>'required',
         'content' =>'required',
-        'topic_id' => 'required',
+        'categories_id' => 'required',
     ]);
     return $post->update([
         'title' => request('title'),
         'content' => request('content'),
-        'topic_id' => request('topic_id'),
+        'categories_id' => request('categories_id'),
     ]);
     }
 
