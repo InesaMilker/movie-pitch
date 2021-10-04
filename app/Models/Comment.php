@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Comment extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'title','content', 'topic_id'
+        'author_name','comment_text','post_id'
     ];
 }
