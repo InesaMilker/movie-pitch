@@ -34,7 +34,8 @@ class CategoryApiController extends Controller
             return response()->json([
                 "message" => "category updated successfully"
             ], 200);
-            } else {
+        }
+        else {
             return response()->json([
                 "message" => "category not found"
             ], 404);
@@ -42,10 +43,19 @@ class CategoryApiController extends Controller
         }
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-        return response()->json(["message"=>"Successful clearence"], 200);
+        if(Category::where('id', $id)->exists())
+        {
+            $category = Category::find($id);
+            $category->delete();
+            return response()->json(["message"=>"Successful clearence"], 200);
+        }
+        else{
+            return response()->json([
+                "message" => "category not found"
+            ], 404);
+        }
     }
 
     public function wanted($id)

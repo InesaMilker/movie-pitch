@@ -41,14 +41,31 @@ class CommentApiController extends Controller
     ]);
     }
 
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        $comment->delete();
-        return response()->json(["message"=>"Successful clearence"], 200);
+        if(Comment::where('id', $id)->exists())
+        {
+            $comment = Comment::find($id);
+            $comment->delete();
+            return response()->json(["message"=>"Successful clearence"], 200);
+        }
+        else{
+            return response()->json([
+                "message" => "comment not found"
+            ], 404);
+        }
     }
 
     public function wanted($id)
     {
-        return Comment::find($id);
+        if(Comment::where('id', $id)->exists())
+        {
+            return Comment::find($id);
+        }
+        else{
+            return response()->json([
+                "message" => "Comment not found"
+            ], 404);
+        }
     }
 }

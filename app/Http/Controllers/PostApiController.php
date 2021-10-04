@@ -36,14 +36,31 @@ class PostApiController extends Controller
     ]);
     }
 
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        $post->delete();
-        return response()->json(["message"=>"Successful clearence"], 200);
+        if(Post::where('id', $id)->exists())
+        {
+            $post = Post::find($id);
+            $post->delete();
+            return response()->json(["message"=>"Successful clearence"], 200);
+        }
+        else{
+            return response()->json([
+                "message" => "Post not found"
+            ], 404);
+        }
     }
 
     public function wanted($id)
     {
-        return Post::find($id);
+        if(Post::where('id', $id)->exists())
+        {
+            return Post::find($id);
+        }
+        else{
+            return response()->json([
+                "message" => "Post not found"
+            ], 404);
+        }
     }
 }
