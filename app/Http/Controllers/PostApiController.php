@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
-
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class PostApiController extends Controller
@@ -64,6 +64,22 @@ class PostApiController extends Controller
         if(Post::where('id', $id)->exists())
         {
             return Post::find($id);
+        }
+        else{
+            return response()->json([
+                "message" => "Post not found"
+            ], 404);
+        }
+
+    }
+
+    public function wantedPost($id, Comment $comments)
+    {
+        if(Post::where('id', $id)->exists())
+        {
+            $post = Post::where('id', $id)->get();
+            return response((
+                $comments = Comment::where('post_id', $id)->get()), 200);
         }
         else{
             return response()->json([

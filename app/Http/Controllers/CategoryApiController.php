@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-
+use App\Models\Post;
 class CategoryApiController extends Controller
 {
     public function index()
@@ -58,7 +58,7 @@ class CategoryApiController extends Controller
         }
     }
 
-    public function wanted($id)
+    public function wanted($id, Post $post)
     {
         if(Category::where('id', $id)->exists())
         {
@@ -69,5 +69,18 @@ class CategoryApiController extends Controller
                 "message" => "category not found"
             ], 404);
         }
+    }
+
+    public function wanted_post($id, Post $post)
+    {
+        if(Category::where('id', $id)->exists()){
+            $category = Category::where('id', $id)->get();
+            return response((
+                $post = Post::where('categories_id', $id)->get()), 200);
+            } else {
+                return response()->json([
+                    "message" => "Post not found"
+                ], 404);
+            }
     }
 }
