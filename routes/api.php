@@ -27,7 +27,7 @@ Route::get('/posts', [PostApiController::class, 'index']);
 
 Route::post('/posts', [PostApiController::class, 'store']);
 
-Route::put('/posts/{post}', [PostApiController::class, 'update']);
+Route::put('/posts/{id}', [PostApiController::class, 'update']);
 
 Route::delete('/posts/{id}', [PostApiController::class, 'destroy']);
 
@@ -38,7 +38,7 @@ Route::get('/categories', [CategoryApiController::class, 'index']);
 
 Route::post('/categories', [CategoryApiController::class, 'store']);
 
-Route::put('/categories/{category}', [CategoryApiController::class, 'update']);
+Route::put('/categories/{id}', [CategoryApiController::class, 'update']);
 
 Route::delete('/categories/{id}', [CategoryApiController::class, 'destroy']);
 

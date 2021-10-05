@@ -26,19 +26,28 @@ class CommentApiController extends Controller
         ]);
     }
 
-    public function update(Comment $comment)
+    public function update($id)
     {
+        if(Comment::where('id', $id)->exists())
+        {
+            request()->validate([
+            'author_name' =>'required',
+            'comment_text' =>'required',
+            'post_id' => 'required',
+            ]);
+            $comment = Comment::find($id);
+            return $comment->update([
+            'author_name' => request('author_name'),
+            'comment_text' => request('comment_text'),
+            'post_id' => request('post_id'),
+        ]);
+        }
+        else{
+            return response()->json([
+                "message" => "comment not found"
+            ], 404);
+        }
 
-    request()->validate([
-        'author_name' =>'required',
-        'comment_text' =>'required',
-        'post_id' => 'required',
-    ]);
-    return $comment->update([
-        'author_name' => request('author_name'),
-        'comment_text' => request('comment_text'),
-        'post_id' => request('post_id'),
-    ]);
     }
 
     public function destroy($id)

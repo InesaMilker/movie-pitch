@@ -21,19 +21,27 @@ class PostApiController extends Controller
         ]);
     }
 
-    public function update(Post $post)
+    public function update($id)
     {
-
-    request()->validate([
-        'title' =>'required',
-        'content' =>'required',
-        'categories_id' => 'required',
-    ]);
-    return $post->update([
-        'title' => request('title'),
-        'content' => request('content'),
-        'categories_id' => request('categories_id'),
-    ]);
+        if(Post::where('id', $id)->exists())
+        {
+            request()->validate([
+            'title' =>'required',
+            'content' =>'required',
+            'categories_id' => 'required',
+            ]);
+            $post = Post::find($id);
+            return $post->update([
+            'title' => request('title'),
+            'content' => request('content'),
+            'categories_id' => request('categories_id'),
+            ]);
+        }
+        else{
+            return response()->json([
+                "message" => "Post not found"
+            ], 404);
+        }
     }
 
     public function destroy($id)
