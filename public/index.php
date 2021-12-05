@@ -52,7 +52,6 @@ $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
 
-
 $kernel->terminate($request, $response);
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS, post, get');
