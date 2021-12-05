@@ -21,11 +21,12 @@ class CommentApiController extends Controller
         if (!$isGuest)
         {
             $user_id = auth()->user()->id;
+            $user_name = auth()->user()->name;
 
             if (Post::where('id', request('post_id'))
                 ->exists())
             {
-                return Comment::create(['author_name' => request('author_name') , 'comment_text' => request('comment_text') , 'post_id' => request('post_id') , 'user_id' => $user_id, ]);
+                return Comment::create(['author_name' => $user_name , 'comment_text' => request('comment_text') , 'post_id' => request('post_id') , 'user_id' => $user_id, ]);
             }
             else
             {
@@ -57,7 +58,7 @@ class CommentApiController extends Controller
                 if ($user_id == $comment->user_id || $user_role == 1)
                 {
 
-                    $comment->author_name = is_null($request->author_name) ? $comment->author_name : $request->author_name;
+                    $comment->author_name= $comment->author_name;
                     $comment->comment_text = is_null($request->comment_text) ? $comment->comment_text : $request->comment_text;
                     // $comment->post_id = is_null($request->post_id) ? $comment->post_id : $request->post_id;
                     $comment->post_id = $comment->post_id;
@@ -93,6 +94,7 @@ class CommentApiController extends Controller
         {
             $user_id = auth()->user()->id;
             $user_role = auth()->user()->role;
+
             if (Comment::where('id', $id)->exists())
             {
                 $comment = Comment::find($id);
