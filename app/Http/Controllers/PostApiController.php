@@ -25,11 +25,12 @@ class PostApiController extends Controller
         if (!$isGuest)
         {
             $user_id = auth()->user()->id;
+            $user_name = auth()->user()->name;
 
             if (Category::where('id', request('category_id'))
                 ->exists())
             {
-                return Post::create(['title' => request('title') , 'content' => request('content') , 'category_id' => request('category_id') , 'user_id' => $user_id, ]);
+                return Post::create(['title' => request('title') , 'content' => request('content') , 'category_id' => request('category_id') , 'user_id' => $user_id, 'author_name' => $user_name ]);
             }
             else
             {
@@ -68,6 +69,7 @@ class PostApiController extends Controller
                         // $post->category_id = is_null($request->category_id) ? $post->category_id : $request->category_id;
                         $post->category_id = $post->category_id;
                         $post->user_id = $post->user_id;
+                        $post->author_name = $post->author_name;
                         $post->save();
 
                         return response()
