@@ -30,7 +30,7 @@ class PostApiController extends Controller
             if (Category::where('id', request('category_id'))
                 ->exists())
             {
-                return Post::create(['title' => request('title') , 'content' => request('content') , 'category_id' => request('category_id') , 'user_id' => $user_id, 'author_name' => $user_name ]);
+                return Post::create(['title' => request('title') , 'content' => request('content') , 'category_id' => request('category_id') , 'user_id' => $user_id,'author_name' => $user_name ]);
             }
             else
             {
